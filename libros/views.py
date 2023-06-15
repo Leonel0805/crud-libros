@@ -22,7 +22,13 @@ def crear(request):
             opcion = form.cleaned_data['opcion']
             
             if opcion == 'libro':
-                return redirect('libros:crear_libro')
+                return redirect('libroslol:crear_libro')
+            
+            elif opcion == 'autor':
+                return redirect('libroslol:crear_autor')
+                    
+            elif opcion == 'editorial':
+                pass 
             
             return render(request, 'crear.html',{
             'form': form
@@ -37,11 +43,51 @@ def crear(request):
 def crear_editorial(request):
     pass
 def crear_autor(request):
-    pass
+    
+    form = AutorCreateForm()
+    
+    if request.method == 'GET':
+        return render(request, 'crear_autor.html',{
+            'form':form
+        })
+        
+    elif request.method == 'POST':
+        form = AutorCreateForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('libroslol:libros')
+        
+        else:
+            return render(request, 'crear_autor.html',{
+                'form': form,
+                'error': 'Error al crear autor'
+            })
+        
 
 def crear_libro(request):
     
-    return render(request, 'crear_libro.html')
+    form = LibroCreateForm()
+    
+    if request.method == 'GET':
+        return render(request, 'crear_libro.html',{
+            'form':form
+        })
+        
+    elif request.method == 'POST':
+        form = LibroCreateForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('libroslol:libros')
+        
+        else:
+            return render(request, 'crear_libro',{
+                'form': form,
+                'error': 'Error al crear libro'
+            })
+            
+            
 
 def libros(request):
     pass

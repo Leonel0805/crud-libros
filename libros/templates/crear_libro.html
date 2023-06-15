@@ -1,1 +1,17 @@
-<h1>Crear libro</h1>
+{% extends 'base.html' %}
+
+{% block title %}Crear Libro {% endblock %}
+
+{% block content %}
+    <h1>Crear Libro</h1>
+
+    <form action="">
+
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <button>Crear Libro</button>
+    </form>
+
+{% endblock %}
+
