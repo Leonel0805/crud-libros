@@ -15,6 +15,15 @@ class Libro(models.Model):
     autor = models.ManyToManyField(Autor)
     editorial = models.ForeignKey(Editorial, on_delete=models.CASCADE)
     
+class Crear(models.Model):
+    
+    OPCIONES= [
+        ('libro', 'LIBRO'),
+        ('autor', 'AUTOR'),
+        ('editorial', 'EDITORIAL')
+    ]
+    
+    opcion = models.CharField(max_length=50, choices=OPCIONES)
     
 
 
