@@ -1,0 +1,9 @@
+manage.py
+venv/
+__init__.py 
+asgi.py
+wsgi.py 
+__pycache__
+migrations/
+apps.py 
+tests.py
