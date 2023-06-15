@@ -5,7 +5,9 @@
 {% block content %}
     <h1>Crear Libro</h1>
 
-    <form action="">
+
+    {{error}}
+    <form action="" method="POST" enctype="multipart/form-data">
 
         {% csrf_token %}
         {{form.as_p}}

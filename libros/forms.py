@@ -9,7 +9,7 @@ class AutorCreateForm(ModelForm):
 class LibroCreateForm(ModelForm):
     class Meta:
         model = Libro
-        fields = ['titulo', 'descripcion','autor', 'editorial']
+        fields = ['titulo', 'descripcion', 'portada', 'autor', 'editorial']
         
 class EditorialCreateForm(ModelForm):
     class Meta:

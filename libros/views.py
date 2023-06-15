@@ -28,7 +28,7 @@ def crear(request):
                 return redirect('libroslol:crear_autor')
                     
             elif opcion == 'editorial':
-                pass 
+                return redirect('libroslol:crear_editorial') 
             
             return render(request, 'crear.html',{
             'form': form
@@ -41,7 +41,27 @@ def crear(request):
             
 
 def crear_editorial(request):
-    pass
+
+    form = EditorialCreateForm()
+    
+    if request.method == 'GET':
+        return render(request, 'crear_editorial.html',{
+            'form': form
+        })
+        
+    elif request.method == 'POST':
+        form = EditorialCreateForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('libroslol:libros')
+    
+        else:
+            return render(request, 'crear_editorial'),{
+                'form':form,
+                'error': 'Error al crear editorial'
+            }
+            
 def crear_autor(request):
     
     form = AutorCreateForm()
@@ -75,7 +95,9 @@ def crear_libro(request):
         })
         
     elif request.method == 'POST':
-        form = LibroCreateForm(request.POST)
+        #hace falta request.FILES para las imagenes guardarlas
+        
+        form = LibroCreateForm(request.POST, request.FILES)
         
         if form.is_valid():
             form.save()
@@ -90,4 +112,11 @@ def crear_libro(request):
             
 
 def libros(request):
-    pass
+    
+    libros = Libro.objects.all()
+    
+    return render(request, 'libros.html',{
+        'libros':libros
+    })
+    
+    
