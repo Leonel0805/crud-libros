@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Autor, Libro, Editorial, Crear
 from .forms import AutorCreateForm, LibroCreateForm, EditorialCreateForm, CrearCreateForm
 
@@ -96,7 +96,7 @@ def crear_libro(request):
         
     elif request.method == 'POST':
         #hace falta request.FILES para las imagenes guardarlas
-        
+        #recibidas por el formulario
         form = LibroCreateForm(request.POST, request.FILES)
         
         if form.is_valid():
@@ -119,4 +119,37 @@ def libros(request):
         'libros':libros
     })
     
+#actualizar datos de libro
+def detalle_libro(request, id_libro):
+    
+    libro = get_object_or_404(Libro, pk=id_libro)
+    form = LibroCreateForm(instance=libro)
+    
+    if request.method == 'GET':
+        return render(request, 'detalle_libro.html',{
+            'libro':libro,
+            'form':form
+        })
+        
+    elif request.method == 'POST':
+        form = LibroCreateForm(request.POST, request.FILES, instance=libro)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('libroslol:libros')
+        
+        else:
+            return render(request, 'detalle_libro.html',{
+            'libro':libro,
+            'form':form,
+            'error':'Error al actualizar'
+        })
+    
+    
+def eliminar_libro(request, id_libro):
+    
+    libro = get_object_or_404(Libro, pk = id_libro)
+    
+    libro.delete()
+    return redirect('libroslol:libros')
     

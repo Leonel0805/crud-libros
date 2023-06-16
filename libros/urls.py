@@ -10,7 +10,9 @@ urlpatterns = [
     path('crear/autor/', views.crear_autor, name='crear_autor'),
     path('crear/editorial/', views.crear_editorial, name='crear_editorial'),
     path('libros/', views.libros, name='libros'),
+    path('libros/detalle/<int:id_libro>', views.detalle_libro , name='detalle_libro'),
+    path('libros/detalle/<int:id_libro>/eliminar', views.eliminar_libro , name='eliminar_libro'),
     
     
-  
+ 
 ]

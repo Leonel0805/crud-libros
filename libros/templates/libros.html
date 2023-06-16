@@ -11,8 +11,28 @@
 
         <ul>
             <li>
-                {{libro.titulo}} {{libro.autor}} {{libro.editorial}}
+                <a href="{% url 'libroslol:detalle_libro' libro.id %}">{{libro.titulo}}</a>
+                
+                {% for autor in libro.autor.all %}
+
+                    {{autor.nombre}}
+                {% endfor %}
+                
+                {{libro.editorial}}
+            
+
+                {% if libro.portada %}
+
+                    <img src="{{ libro.portada.url }}" alt="" width="200px">
+                {% endif %}
+
+
             </li>
         </ul>
     {% endfor %}
+
+    <a href="{% url 'libroslol:crear_libro' %}">
+        <button>Crear libro</button>
+    </a>
+
 {% endblock %}
